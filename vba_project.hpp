@@ -4,8 +4,7 @@
 #include <cmath>
 #include <vector>
 
-#define SQR(x) (x*x);
-#define MAX(A,B) ( (A) > (B) ? (A):(B) )
+#define MAX(A,B) ( (A) > (B) ? (A):(B) );
 
 vector<vector<int> > Identity(int n){return Identity(n);}
 namespace vba

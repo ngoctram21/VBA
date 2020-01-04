@@ -25,12 +25,12 @@
  int vba::Pricing_European_Options(double S0,double Maturity, double Strike, double r, double divid,double sigma, double* ptprice, double* ptrdelta, double* ptrgamma, double* ptrtheta, double* ptrrho, double* ptrvega, int nTime, int nSpace)
  {
    double h = Maturity/nTime,
-          b = r - divid -SQR(sigma)/2.0;
+          b = r - divid - sigma*sigma / nTime;
    double l = abs(b)*Maturity + 3.89*sigma*sqrt(Maturity),
           k = 2*l/(nSpace),
-          alpha = SQR(sigma)/(2.0*SQR(k)) - b/(2*k);
-   double beta = -(SQR(sigma)/SQR(k)+r);
-   double gamma = SQR(sigma)/(2*SQR(k)) + b/(2*k);
+          alpha = (sigma*sigma)/(2.0*k*k) - b/(2*k);
+   double beta = (sigma*sigma)/(k*k)+r;
+   double gamma = (sigma*sigma)/(2*k*k) + b/(2*k);
 
         std::vector<double> x(nSpace+1), Payoff(nSpace+1), Price(nSpace+1);
         for (int i = 0; i < nSpace; i++)
