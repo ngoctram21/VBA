@@ -26,11 +26,13 @@ std::vector<double> solve_tridiag(const std::vector<double>& low, const std::vec
 namespace finum
 {
 
-	double  Price_option(int type,double s0, double Maturity, double Strike, double r, double  divid, double sigma,  int nTime, int nSpace);
-	double delta(int type, double s0, double Maturity, double Strike, double r, double  divid, double sigma,  int nTime, int nSpace,double delta_S);
+	double  Price_option(int type, double s0, double Maturity, double Strike, double r, double  divid, double sigma, int nTime, int nSpace);
+	double delta(int type, double s0, double Maturity, double Strike, double r, double  divid, double sigma, int nTime, int nSpace, double delta_S);
 	double gamma(int optiontype, double S, double Maturity, double Strike, double r, double  divid, double sigma, int nTime, int nSpace, double delta_S);
+	double theta(int optiontype, double S, double Maturity, double Strike, double r, double  divid, double sigma, int nTime, int nSpace, double delta_t);
+	double vega(int optiontype, double S, double Maturity, double Strike, double r, double  divid, double sigma, int nTime, int nSpace, double delta_v);
+	double rho(int optiontype, double S, double Maturity, double Strike, double r, double  divid, double sigma, int nTime, int nSpace, double delta_r);
 }
-
 /*#define int_dll  __declspec(dllexport) int __stdcall
 #define void_dll  __declspec(dllexport) void  __stdcall
 #define double_dll __declspec(dllexport) double __stdcall
