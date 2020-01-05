@@ -27,8 +27,8 @@ namespace finum
 {
 
 	double  Price_option(int type,double s0, double Maturity, double Strike, double r, double  divid, double sigma,  int nTime, int nSpace);
-	double delta(int type, double s0, double Maturity, double Strike, double r, double  divid, double sigma,  int nTime, int nSpace);
-
+	double delta(int type, double s0, double Maturity, double Strike, double r, double  divid, double sigma,  int nTime, int nSpace,double delta_S);
+	double gamma(int optiontype, double S, double Maturity, double Strike, double r, double  divid, double sigma, int nTime, int nSpace, double delta_S);
 }
 
 /*#define int_dll  __declspec(dllexport) int __stdcall

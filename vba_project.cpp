@@ -266,11 +266,11 @@ int main()
 {
     double price,s0, Maturity,  Strike, eqr,  eqdiv, sigma_ref, volimpl,impliedDelta,  impliedGamma, barrierup, barrierdown, rebate;
     price=.2;
-    s0=5630.;
+    s0=5600.;
     Maturity=1.;
-    Strike=5620.;
+    Strike=5500.;
     rebate=0.;
-    eqr=0.05;
+    eqr=0.02;
     eqdiv=0.;
     sigma_ref=0.3;
     volimpl=0.3;
@@ -297,7 +297,6 @@ int main()
     cout << FD_Price(1, s0, Maturity, Strike, eqr, sigma_ref, eqdiv, nTime, nSpace);
     
     cout << " \n ";
-    
-    
+    return 0;
 }
 

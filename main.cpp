@@ -1,4 +1,3 @@
-#include "pch.h"
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
@@ -165,17 +164,17 @@ double finum::Price_option(int optiontype,double s0, double Maturity, double Str
 	*ptdelta = Price[nSpace / 2];
 	*ptgamma = Price[nSpace / 2];
 	*/
-	return (final_price);
+	return final_price;
 
 }
 
 double finum:: delta(int optiontype, double S, double Maturity, double Strike, double r,
-	                 double  divid, double sigma, int nTime, int nSpace)
+	                 double  divid, double sigma, int nTime, int nSpace, double delta_S)
 
 {
-	double delta_S, price1, price2, S1, delta;
+	double  price1, price2, S1, delta;
 
-	delta_S = S * (Maturity / nSpace);
+	//delta_S = S * (Maturity / nTime);
 	S1 =  S + delta_S;
 	price1 = finum::Price_option(optiontype, S, Maturity, Strike, r, divid, sigma, nTime, nSpace);
 	price2 = finum::Price_option(optiontype, S1, Maturity, Strike, r, divid, sigma, nTime, nSpace);
@@ -183,29 +182,46 @@ double finum:: delta(int optiontype, double S, double Maturity, double Strike, d
 
 	return(delta);
 }
+
+double finum::gamma(int optiontype, double S, double Maturity, double Strike, double r,
+	double  divid, double sigma, int nTime, int nSpace,double delta_S)
+
+{
+	double  price_up,price, price_2up, S_up,S_2up, gamma;
+	//delta_S = S * (Maturity / nTime);
+	S_up = S + delta_S;
+	S_2up = S - delta_S;
+	price = finum::Price_option(optiontype, S, Maturity, Strike, r, divid, sigma, nTime, nSpace);
+	price_up = finum::Price_option(optiontype, S_up, Maturity, Strike, r, divid, sigma, nTime, nSpace);
+	price_2up = finum::Price_option(optiontype, S_2up, Maturity, Strike, r, divid, sigma, nTime, nSpace);
+	gamma = (price_up - (2. * price) + price_2up)/(SQR(delta_S));
+
+	return(gamma);
+}
+
 int main()
 {
 
-	double price, s0, Maturity, Strike, eqr, eqdiv, sigma_ref, volimpl, impliedDelta, impliedGamma, rebate;
-	s0 = 105.;
+	double price, s0, Maturity, Strike, eqr, eqdiv, sigma_ref, volimpl, impliedDelta, impliedGamma, rebate, delta_S;
+	s0 = 1050.;
 	Maturity = 1.;
-	Strike = 100.;
-	eqr = 0.2;
+	Strike = 1000.;
+	eqr = 0.;
 	eqdiv = 0.;
-	sigma_ref = .2;
-
-
+	sigma_ref = 0.2;
+	delta_S =  10e-6;
 	int nTime = 500;
 	int nSpace = 499;
 
 	const int nspace_2 = 10;
-	double delta;
-	//delta = 0;
+	double delta, gamma;
 	price=finum::Price_option(1,s0, Maturity, Strike, eqr, eqdiv, sigma_ref, nTime, nSpace);
 	cout << "The price of ImplPriceNone is " << price << " " << endl;
-	delta= finum::delta(1, s0, Maturity, Strike, eqr, eqdiv, sigma_ref, nTime, nSpace);
+	delta= finum::delta(1, s0, Maturity, Strike, eqr, eqdiv, sigma_ref, nTime, nSpace,delta_S);
+	gamma= finum::gamma(1, s0, Maturity, Strike, eqr, eqdiv, sigma_ref, nTime, nSpace,delta_S);
 	
 	cout << "delta is " << delta;
+	cout << "gamma is " << gamma;
 
 
 
