@@ -175,7 +175,7 @@ double finum:: delta(int optiontype, double S, double Maturity, double Strike, d
 {
 	double delta_S, price1, price2, S1, delta;
 
-	delta_S = S * (Maturity / 10);
+	delta_S = S * (Maturity / nSpace);
 	S1 =  S + delta_S;
 	price1 = finum::Price_option(optiontype, S, Maturity, Strike, r, divid, sigma, nTime, nSpace);
 	price2 = finum::Price_option(optiontype, S1, Maturity, Strike, r, divid, sigma, nTime, nSpace);
