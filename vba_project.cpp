@@ -13,6 +13,8 @@
  #define Call = 1;
  #define Put = 2;
 
+/*Set Payoff value*/
+
 double Phi (int option, double x, double Strike)
 {
     double phi;
@@ -29,6 +31,8 @@ double Phi (int option, double x, double Strike)
     return phi;
 }
 
+/*Function create diagonal matrix*/
+
 vector<vector<double>> M_diag(vector<double> x)
 {
     int n = x.size();
@@ -40,6 +44,8 @@ vector<vector<double>> M_diag(vector<double> x)
     }
     return matrix_diag;
 }
+
+/*Function create sub-diagonal matrix*/
 
 vector<vector<double>> M_low(vector<double> x)
 {
@@ -53,6 +59,8 @@ vector<vector<double>> M_low(vector<double> x)
     return matrix_low;
 }
 
+/*Function create superdiagonal matrix*/
+
 vector<vector<double>> M_up(vector<double> x)
 {
     int n = x.size()+1;
@@ -64,6 +72,8 @@ vector<vector<double>> M_up(vector<double> x)
     }
     return matrix_up;
 }
+
+/*Function plus 2 matrix*/
  
 vector<vector<double>> M_sum(vector<vector<double>> A , vector<vector<double>> B)
 {
@@ -79,6 +89,8 @@ vector<vector<double>> M_sum(vector<vector<double>> A , vector<vector<double>> B
     }
     return matrix_sum;
 }
+
+/*Function create tridiagonal matrix*/
 
 vector<vector<double>> M_theta_hA(vector<double> mlow, vector<double> mdiag, vector<double> mup, double sign)
 {
@@ -107,6 +119,8 @@ vector<vector<double>> M_theta_hA(vector<double> mlow, vector<double> mdiag, vec
     return sum;
 }
 
+/*Multiply a matrix to a vector*/
+
 vector<double> M_mult_v(vector<vector<double>> A, vector<double> u)
 {
     int n = u.size();
@@ -121,6 +135,8 @@ vector<double> M_mult_v(vector<vector<double>> A, vector<double> u)
     return mul;
 }
 
+/*Multiply 2 matrix*/
+
 vector<vector<double>> M_mult_M(vector<vector<double>> A, vector<vector<double>> B)
 {
     int n = A.size();
@@ -134,6 +150,8 @@ vector<vector<double>> M_mult_M(vector<vector<double>> A, vector<vector<double>>
             }
     return m_mult;
 }
+
+/*Decomposition LU*/
 
 vector<double> Decom_LU(vector<vector<double>> A, vector<double> b)
 {
@@ -165,6 +183,8 @@ vector<double> Decom_LU(vector<vector<double>> A, vector<double> b)
     
     return x;
 }
+
+/* Matrix Price computed by Finite Difference*/
 
 vector<vector<double> > M_FD_Price(int option_type, double S0, double Maturity, double Strike, double r, double sigma, double divid, int nTime, int nSpace)
 {
@@ -223,6 +243,8 @@ vector<vector<double> > M_FD_Price(int option_type, double S0, double Maturity, 
     return Price;
 }
 
+/*Option price at time 0*/
+
 double FD_Price(int option_type, double S0, double Maturity, double Strike, double r, double sigma, double divid, int nTime, int nSpace)
 {
     vector<vector<double>> P;
@@ -237,6 +259,8 @@ double FD_Price(int option_type, double S0, double Maturity, double Strike, doub
     }
     
 }
+
+//Main function
 
 int main()
 {
